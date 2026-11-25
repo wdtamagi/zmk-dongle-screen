@@ -14,31 +14,31 @@
 &pinctrl {
    spi3_default: spi3_default {
 		group1 {
-			psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
-				<NRF_PSEL(SPIM_MOSI, 1, 15)>,
-				<NRF_PSEL(SPIM_MISO, 1, 11)>;
+			psels = <NRF_PSEL(SPIM_SCK, 0, 6)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 8)>,
+				<NRF_PSEL(SPIM_MISO, 0, 17)>;
 		};
 	};
 
 	spi3_sleep: spi3_sleep {
 		group1 {
-			psels = <NRF_PSEL(SPIM_SCK, 1, 13)>,
-				<NRF_PSEL(SPIM_MOSI, 1, 15)>,
-				<NRF_PSEL(SPIM_MISO, 1, 11)>;
+			psels = <NRF_PSEL(SPIM_SCK, 0, 6)>,
+				<NRF_PSEL(SPIM_MOSI, 0, 8)>,
+				<NRF_PSEL(SPIM_MISO, 0, 17)>;
 			low-power-enable;
 		};
 	};
 
    pwm1_default: pwm1_default {
       group1 {
-         psels = <NRF_PSEL(PWM_OUT0, 0, 10)>;
+         psels = <NRF_PSEL(PWM_OUT0, 0, 20)>;
          nordic,invert;
       };
    };
 
    pwm1_sleep: pwm1_sleep {
       group1 {
-         psels = <NRF_PSEL(PWM_OUT0, 0, 10)>;
+         psels = <NRF_PSEL(PWM_OUT0, 0, 20)>;
          low-power-enable;
       };
    };
@@ -50,15 +50,15 @@ disp_spi: &spi3 {
    pinctrl-0 = <&spi3_default>;
 	pinctrl-1 = <&spi3_sleep>;
 	pinctrl-names = "default", "sleep";
-   cs-gpios = <&gpio1 6 GPIO_ACTIVE_LOW>;
+   cs-gpios = <&gpio0 22 GPIO_ACTIVE_LOW>;
 };
 
 / {
    mipi_dbi {
       compatible = "zephyr,mipi-dbi-spi";
       spi-dev = <&spi3>;
-      dc-gpios = <&gpio1 4 GPIO_ACTIVE_HIGH>;
-      reset-gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
+      dc-gpios = <&gpio0 24 GPIO_ACTIVE_HIGH>;
+      reset-gpios = <&gpio1 0 GPIO_ACTIVE_LOW>;
       write-only;
       #address-cells = <1>;
       #size-cells = <0>;
@@ -98,7 +98,7 @@ disp_spi: &spi3 {
        compatible = "avago,apds9960";
        status = "okay";
        reg = <0x39>;
-       int-gpios = <&gpio1 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+       int-gpios = <&gpio0 11 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
    };
 };
 
